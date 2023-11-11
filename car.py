@@ -1,6 +1,18 @@
 from pico2d import load_image
 from sdl2 import SDL_KEYDOWN, SDLK_LEFT, SDLK_RIGHT, SDL_KEYUP
 
+import game_framework
+
+PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
+RUN_SPEED_KMPH = 20.0  # Km / Hour
+RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+TIME_PER_ACTION = 0.5
+ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
+FRAMES_PER_ACTION = 8
+
 
 def left_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_LEFT
@@ -30,14 +42,15 @@ class Idle:
 
     @staticmethod
     def do(car):
-        car.frame = (car.frame + 1) % 2
+        car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 2
         print('Idle Do')
 
     @staticmethod
     def draw(car):
-        if car.frame == 0:
+        # car.image.clip_draw(int(car.frame) * 100, car.action * 100, 100, 100, car.x, car.y)
+        if int(car.frame) == 0:
             car.image.clip_draw(0, 0, 40, 26, car.x, car.y, 100, 50)
-        if car.frame == 1:
+        if int(car.frame) == 1:
             car.image.clip_draw(40, 0, 56, 26, car.x, car.y, 100, 50)
         pass
 
@@ -58,16 +71,15 @@ class Move:
     @staticmethod
     def do(car):
         car.frame = (car.frame + 1) % 2
-
         if car.x + car.dir * 5 > 100 and car.x + car.dir * 5 < 700:
-            car.x += car.dir * 5
+            car.x += car.dir * RUN_SPEED_PPS * game_framework.frame_time
         print('Move Do')
 
     @staticmethod
     def draw(car):
-        if car.frame == 0:
+        if int(car.frame) == 0:
             car.image.clip_draw(0, 0, 40, 26, car.x, car.y, 100, 50)
-        if car.frame == 1:
+        if int(car.frame) == 1:
             car.image.clip_draw(40, 0, 56, 26, car.x, car.y, 100, 50)
         pass
 
