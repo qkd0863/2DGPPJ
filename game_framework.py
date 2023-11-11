@@ -66,6 +66,3 @@ def run(start_mode):
         stack.pop()
 
 
-def clear():
-    for layer in objects:
-        layer.clear()

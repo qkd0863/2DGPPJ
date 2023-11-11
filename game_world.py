@@ -28,7 +28,7 @@ def remove_object(o):
             remove_collision_object(o)
             del o
             return
-    raise ValueError('Cannot delete non existing object')
+    raise ValueError('지우기 실패')
 
 
 def handle_collisions():
@@ -56,11 +56,10 @@ def render():
             o.draw()
 
 
-
-
 def clear():
     for layer in world:
         layer.clear()
+
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()

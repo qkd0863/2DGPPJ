@@ -35,23 +35,20 @@ class Idle:
     def enter(car, e):
         car.dir = 0
 
-
     @staticmethod
     def exit(car, e):
         pass
 
     @staticmethod
     def do(car):
-        car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 2
-
+        car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
 
     @staticmethod
     def draw(car):
         # car.image.clip_draw(int(car.frame) * 100, car.action * 100, 100, 100, car.x, car.y)
-        if int(car.frame) == 0:
-            car.image.clip_draw(0, 0, 40, 26, car.x, car.y, 100, 50)
-        if int(car.frame) == 1:
-            car.image.clip_draw(40, 0, 56, 26, car.x, car.y, 100, 50)
+
+        car.image.clip_draw(0 + 40 * int(car.frame), 0, 40, 32, car.x, car.y, 100, 50)
+
         pass
 
 
@@ -63,23 +60,19 @@ class Move:
         elif left_down(e):
             car.dir = -1
 
-
     @staticmethod
     def exit(car, e):
         pass
 
     @staticmethod
     def do(car):
-        car.frame = (car.frame + 1) % 2
+        car.frame = (car.frame + 1) % 6
         if car.x + car.dir * 5 > 100 and car.x + car.dir * 5 < 700:
             car.x += car.dir * RUN_SPEED_PPS * game_framework.frame_time
 
     @staticmethod
     def draw(car):
-        if int(car.frame) == 0:
-            car.image.clip_draw(0, 0, 40, 26, car.x, car.y, 100, 50)
-        if int(car.frame) == 1:
-            car.image.clip_draw(40, 0, 56, 26, car.x, car.y, 100, 50)
+        car.image.clip_draw(0 + 40 * int(car.frame), 0, 40, 32, car.x, car.y, 100, 50)
         pass
 
 
@@ -112,12 +105,11 @@ class StateMachine:
         self.cur_state.draw(self.car)
 
 
-
 class Car:
     def __init__(self):
         self.x, self.y = 300, 300
         self.frame = 0
-        self.image = load_image('12.png')
+        self.image = load_image('car.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 
