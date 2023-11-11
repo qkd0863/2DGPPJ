@@ -66,7 +66,7 @@ class Move:
 
     @staticmethod
     def do(car):
-        car.frame = (car.frame + 1) % 6
+        car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
         if car.x + car.dir * 5 > 100 and car.x + car.dir * 5 < 700:
             car.x += car.dir * RUN_SPEED_PPS * game_framework.frame_time
 
@@ -107,7 +107,7 @@ class StateMachine:
 
 class Car:
     def __init__(self):
-        self.x, self.y = 300, 300
+        self.x, self.y = 300, 100
         self.frame = 0
         self.image = load_image('car.png')
         self.state_machine = StateMachine(self)
