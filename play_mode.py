@@ -1,6 +1,8 @@
 from pico2d import *
 
+import game_framework
 import game_world
+import title_mode
 from car import Car
 
 
@@ -9,23 +11,22 @@ def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
-            running = False
+            game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
+            game_framework.change_mode(title_mode)
         else:
             car.handle_events(event)
 
 
-def update_world():
+def update():
     game_world.update()
     pass
 
 
-def render_world():
+def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
-
 
 
 def reset_world():
@@ -36,7 +37,12 @@ def reset_world():
     car = Car()
 
 
-def create_world():
+
+def finish():
+    pass
+
+
+def init():
     global running
     global car
 
@@ -46,13 +52,6 @@ def create_world():
     game_world.add_object(car, 1)
 
 
-open_canvas()
-create_world()
-
-while running:
-    handle_events()
-    update_world()
-    render_world()
-    delay(0.01)
-
-close_canvas()
+def finish():
+    game_world.clear()
+    pass

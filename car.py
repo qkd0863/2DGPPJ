@@ -78,7 +78,7 @@ class StateMachine:
         self.cur_state = Idle
         self.transitions = {
             Idle: {left_down: Move, right_down: Move, left_up: Move, right_down: Move},
-            Move: {left_up: Idle, right_up: Idle}
+            Move: {left_down: Idle, right_down: Idle, left_up: Idle, right_up: Idle}
         }
 
     def start(self):
