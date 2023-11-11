@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import load_image, draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDLK_LEFT, SDLK_RIGHT, SDL_KEYUP
 
 import game_framework
@@ -113,6 +113,7 @@ class StateMachine:
         self.cur_state.draw(self.car)
 
 
+
 class Car:
     def __init__(self):
         self.x, self.y = 300, 300
@@ -130,3 +131,7 @@ class Car:
 
     def draw(self):
         self.state_machine.draw()
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
