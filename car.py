@@ -34,16 +34,16 @@ class Idle:
     @staticmethod
     def enter(car, e):
         car.dir = 0
-        print('Idle Enter')
+
 
     @staticmethod
     def exit(car, e):
-        print('Idle Exit')
+        pass
 
     @staticmethod
     def do(car):
         car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 2
-        print('Idle Do')
+
 
     @staticmethod
     def draw(car):
@@ -62,18 +62,17 @@ class Move:
             car.dir = 1
         elif left_down(e):
             car.dir = -1
-        print('Move Enter')
+
 
     @staticmethod
     def exit(car, e):
-        print('Move Exit')
+        pass
 
     @staticmethod
     def do(car):
         car.frame = (car.frame + 1) % 2
         if car.x + car.dir * 5 > 100 and car.x + car.dir * 5 < 700:
             car.x += car.dir * RUN_SPEED_PPS * game_framework.frame_time
-        print('Move Do')
 
     @staticmethod
     def draw(car):
@@ -137,5 +136,5 @@ class Car:
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
 
     def handle_collision(self, group, other):
-        if group == 'car:boundary':
+        if group == 'car:hurdle':
             print('collide')

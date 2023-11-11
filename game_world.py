@@ -22,7 +22,7 @@ def remove_collision_object(o):
 
 
 def remove_object(o):
-    for layer in objects:
+    for layer in world:
         if o in layer:
             layer.remove(o)
             remove_collision_object(o)
@@ -56,13 +56,11 @@ def render():
             o.draw()
 
 
-def remove_object(o):
-    for layer in world:
-        if o in layer:
-            layer.remove(o)
-            return
-    raise ValueError("지우기 실패")
 
+
+def clear():
+    for layer in world:
+        layer.clear()
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()

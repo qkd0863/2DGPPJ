@@ -4,6 +4,7 @@ import game_framework
 import game_world
 import title_mode
 from car import Car
+from hurdle import Hurdle
 
 
 def handle_events():
@@ -38,7 +39,6 @@ def reset_world():
     car = Car()
 
 
-
 def finish():
     pass
 
@@ -51,7 +51,11 @@ def init():
 
     car = Car()
     game_world.add_object(car, 1)
-    game_world.add_collision_pair('car:boundary', car, None)
+    game_world.add_collision_pair('car:hurdle', car, None)
+
+    hurdle = Hurdle()
+    game_world.add_object(hurdle, 1)
+    game_world.add_collision_pair('car:hurdle', None, hurdle)
 
 
 def finish():
