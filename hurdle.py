@@ -9,12 +9,12 @@ class Hurdle:
     image = None
 
     def __init__(self):
-        self.x, self.y = random.randint(300,400), 610
+        self.x, self.y = random.randint(300, 400), 610
         if Hurdle.image == None:
             Hurdle.image = load_image('hurdle.png')
 
     def update(self):
-        self.y -= 1
+        self.y -= 0.5
         if self.y <= 0:
             game_world.remove_object(self)
             hurdle = Hurdle()

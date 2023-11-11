@@ -81,7 +81,7 @@ class StateMachine:
         self.car = car
         self.cur_state = Idle
         self.transitions = {
-            Idle: {left_down: Move, right_down: Move, left_up: Move, right_down: Move},
+            Idle: {left_down: Move, right_down: Move, left_up: Move, right_up: Move},
             Move: {left_down: Idle, right_down: Idle, left_up: Idle, right_up: Idle}
         }
 
