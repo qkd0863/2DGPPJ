@@ -135,3 +135,7 @@ class Car:
 
     def get_bb(self):
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+
+    def handle_collision(self, group, other):
+        if group == 'car:boundary':
+            print('collide')

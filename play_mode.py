@@ -20,6 +20,7 @@ def handle_events():
 
 def update():
     game_world.update()
+    game_world.handle_collisions()
     pass
 
 
@@ -50,6 +51,7 @@ def init():
 
     car = Car()
     game_world.add_object(car, 1)
+    game_world.add_collision_pair('car:boundary', car, None)
 
 
 def finish():
