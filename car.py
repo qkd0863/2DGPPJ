@@ -1,7 +1,8 @@
 from pico2d import load_image, draw_rectangle
-from sdl2 import SDL_KEYDOWN, SDLK_LEFT, SDLK_RIGHT, SDL_KEYUP
+from sdl2 import SDL_KEYDOWN, SDLK_LEFT, SDLK_RIGHT, SDL_KEYUP, SDLK_UP, SDLK_DOWN
 
 import game_framework
+import road
 
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 20.0  # Km / Hour
@@ -28,6 +29,22 @@ def right_down(e):
 
 def right_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_RIGHT
+
+
+def front_down(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_UP
+
+
+def front_up(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_UP
+
+
+def back_down(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_DOWN
+
+
+def back_up(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_DOWN
 
 
 class Idle:
@@ -76,13 +93,49 @@ class Move:
         pass
 
 
+class ChangeSpeed:
+    global TIME_PER_ACTION_ROAD
+
+    @staticmethod
+    def enter(car, e):
+        car.dir = 0
+        if front_down(e):
+            car.changespeed = -0.001
+        if back_down(e):
+            car.changespeed = 0.001
+        pass
+
+    @staticmethod
+    def exit(car, e):
+        car.changespeed = 0
+        print('speed exit')
+        pass
+
+    @staticmethod
+    def do(car):
+        car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
+        if road.TIME_PER_ACTION_ROAD + car.changespeed > 0:
+            road.TIME_PER_ACTION_ROAD += car.changespeed
+        print(road.TIME_PER_ACTION_ROAD)
+        pass
+
+    @staticmethod
+    def draw(car):
+        car.image.clip_draw(0 + 40 * int(car.frame), 0, 40, 32, car.x, car.y, 100, 50)
+        pass
+
+
 class StateMachine:
     def __init__(self, car):
         self.car = car
         self.cur_state = Idle
         self.transitions = {
-            Idle: {left_down: Move, right_down: Move, left_up: Move, right_up: Move},
-            Move: {left_down: Idle, right_down: Idle, left_up: Idle, right_up: Idle}
+            Idle: {left_down: Move, right_down: Move, left_up: Move, right_up: Move, front_down: ChangeSpeed,
+                   front_up: ChangeSpeed, back_down: ChangeSpeed, back_up: ChangeSpeed},
+            Move: {left_down: Idle, right_down: Idle, left_up: Idle, right_up: Idle, front_down: ChangeSpeed,
+                   front_up: ChangeSpeed, back_down: ChangeSpeed, back_up: ChangeSpeed},
+            ChangeSpeed: {left_down: Idle, right_down: Idle, left_up: Idle, right_up: Idle, front_down: Idle,
+                          front_up: Idle, back_down: Idle, back_up: Idle}
         }
 
     def start(self):
@@ -112,6 +165,7 @@ class Car:
         self.image = load_image('car.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.changespeed = 0
 
     def update(self):
         self.state_machine.update()
