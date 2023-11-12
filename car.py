@@ -100,9 +100,9 @@ class ChangeSpeed:
     def enter(car, e):
         car.dir = 0
         if front_down(e):
-            car.changespeed = -0.001
+            car.changespeed = -0.0005
         if back_down(e):
-            car.changespeed = 0.001
+            car.changespeed = 0.0005
         pass
 
     @staticmethod

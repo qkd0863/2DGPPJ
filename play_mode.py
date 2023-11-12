@@ -4,6 +4,7 @@ import game_framework
 import game_world
 import title_mode
 from car import Car
+from coin import Coin
 from hurdle import Hurdle
 from road import Road
 
@@ -49,10 +50,17 @@ def init():
     car = Car()
     game_world.add_object(car, 1)
     game_world.add_collision_pair('car:hurdle', car, None)
+    game_world.add_collision_pair('car:coin', car, None)
 
     hurdle = Hurdle()
     game_world.add_object(hurdle, 1)
     game_world.add_collision_pair('car:hurdle', None, hurdle)
+
+    coin = Coin()
+    game_world.add_object(coin, 1)
+    game_world.add_collision_pair('car:coin', None, coin)
+
+
 
     road = Road()
     game_world.add_object(road, 0)
