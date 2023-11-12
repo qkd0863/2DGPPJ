@@ -4,6 +4,7 @@ from pico2d import load_image, draw_rectangle
 
 import game_framework
 import game_world
+import road
 
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
@@ -23,7 +24,7 @@ class Coin:
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
-        self.y -= 0.5
+        self.y -= 0.5 + (1 - road.TIME_PER_ACTION_ROAD)
         if self.y <= 0:
             game_world.remove_object(self)
             coin = Coin()

@@ -179,7 +179,7 @@ class Car:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+        return self.x - 50, self.y - 35, self.x + 50, self.y + 35
 
     def handle_collision(self, group, other):
         if group == 'car:hurdle':

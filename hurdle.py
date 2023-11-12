@@ -3,6 +3,7 @@ import random
 from pico2d import load_image, draw_rectangle
 
 import game_world
+import road
 
 
 class Hurdle:
@@ -14,7 +15,7 @@ class Hurdle:
             Hurdle.image = load_image('hurdle.png')
 
     def update(self):
-        self.y -= 0.5
+        self.y -= 0.5 + (1 - road.TIME_PER_ACTION_ROAD)
         if self.y <= 0:
             game_world.remove_object(self)
             hurdle = Hurdle()
