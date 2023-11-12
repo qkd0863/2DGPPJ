@@ -32,6 +32,7 @@ class Hurdle:
     def handle_collision(self, group, other):
         if group == 'car:hurdle':
             game_world.remove_object(self)
+            road.TIME_PER_ACTION_ROAD += 0.2
             hurdle = Hurdle()
             game_world.add_object(hurdle)
             game_world.add_collision_pair('car:hurdle', None, hurdle)

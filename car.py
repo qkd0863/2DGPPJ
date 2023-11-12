@@ -62,8 +62,6 @@ class Idle:
 
     @staticmethod
     def draw(car):
-        # car.image.clip_draw(int(car.frame) * 100, car.action * 100, 100, 100, car.x, car.y)
-
         car.image.clip_draw(0 + 40 * int(car.frame), 0, 40, 32, car.x, car.y, 100, 50)
 
         pass
@@ -73,9 +71,9 @@ class Move:
     @staticmethod
     def enter(car, e):
         if right_down(e):
-            car.dir = 1
+            car.dir = 1.5
         elif left_down(e):
-            car.dir = -1
+            car.dir = -1.5
 
     @staticmethod
     def exit(car, e):
@@ -122,7 +120,6 @@ class ChangeSpeed:
     @staticmethod
     def draw(car):
         car.image.clip_draw(0 + 40 * int(car.frame), 0, 40, 32, car.x, car.y, 100, 50)
-        pass
 
 
 class StateMachine:

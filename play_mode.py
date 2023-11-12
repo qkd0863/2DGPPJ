@@ -6,6 +6,7 @@ import title_mode
 from car import Car
 from coin import Coin
 from hurdle import Hurdle
+from information import Information
 from road import Road
 
 
@@ -60,10 +61,11 @@ def init():
     game_world.add_object(coin, 1)
     game_world.add_collision_pair('car:coin', None, coin)
 
-
-
     road = Road()
     game_world.add_object(road, 0)
+
+    information = Information()
+    game_world.add_object(information, 1)
 
 
 def finish():
