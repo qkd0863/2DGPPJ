@@ -2,6 +2,7 @@ from pico2d import *
 
 import game_framework
 import game_world
+import information
 import title_mode
 from car import Car
 from coin import Coin

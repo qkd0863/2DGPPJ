@@ -92,8 +92,6 @@ class Move:
 
 
 class ChangeSpeed:
-    global TIME_PER_ACTION_ROAD
-
     @staticmethod
     def enter(car, e):
         car.dir = 0
@@ -127,11 +125,11 @@ class StateMachine:
         self.car = car
         self.cur_state = Idle
         self.transitions = {
-            Idle: {left_down: Move, right_down: Move, left_up: Move, right_up: Move, front_down: ChangeSpeed,
+            Idle: {left_down: Move, right_down: Move, left_up: Idle, right_up: Idle, front_down: ChangeSpeed,
                    front_up: ChangeSpeed, back_down: ChangeSpeed, back_up: ChangeSpeed},
-            Move: {left_down: Idle, right_down: Idle, left_up: Idle, right_up: Idle, front_down: ChangeSpeed,
+            Move: {left_down: Move, right_down: Move, left_up: Idle, right_up: Idle, front_down: ChangeSpeed,
                    front_up: ChangeSpeed, back_down: ChangeSpeed, back_up: ChangeSpeed},
-            ChangeSpeed: {left_down: Idle, right_down: Idle, left_up: Idle, right_up: Idle, front_down: Idle,
+            ChangeSpeed: {left_down: Move, right_down: Move, left_up: Move, right_up: Move, front_down: Idle,
                           front_up: Idle, back_down: Idle, back_up: Idle}
         }
 
