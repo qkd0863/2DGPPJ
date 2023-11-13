@@ -4,6 +4,7 @@ from pico2d import load_image, draw_rectangle
 
 import game_framework
 import game_world
+import information
 import road
 
 TIME_PER_ACTION = 0.5
@@ -41,6 +42,8 @@ class Coin:
     def handle_collision(self, group, other):
         if group == 'car:coin':
             game_world.remove_object(self)
+            information.Reward_Score += 500
+            information.Eat_Coin = True
             coin = Coin()
             game_world.add_object(coin)
             game_world.add_collision_pair('car:coin', None, coin)

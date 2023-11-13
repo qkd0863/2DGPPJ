@@ -4,10 +4,10 @@ import game_framework
 
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 
-
 TIME_PER_ACTION_ROAD = 1.0
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION_ROAD
 FRAMES_PER_ACTION = 8
+
 
 class Road:
     def __init__(self):
@@ -22,4 +22,3 @@ class Road:
     def update(self):
         ACTION_PER_TIME = 1.0 / TIME_PER_ACTION_ROAD
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
-

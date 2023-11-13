@@ -4,6 +4,7 @@ import game_framework
 from pico2d import load_image, clear_canvas, update_canvas, get_events, get_time, load_font
 
 import information
+import road
 import title_mode
 
 
@@ -45,3 +46,4 @@ def handle_events():
             game_framework.quit()
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
             game_framework.change_mode(title_mode)
+            road.TIME_PER_ACTION_ROAD = 1.0

@@ -5,6 +5,7 @@ import reward_mode
 import road
 
 Reward_Score = 0
+Eat_Coin = False
 
 
 class Information:
@@ -16,10 +17,15 @@ class Information:
         self.progress = 0
 
     def update(self):
+        global Reward_Score
+        global Eat_Coin
         self.score += 1 - road.TIME_PER_ACTION_ROAD + 0.01
         self.progress += (1.0 - road.TIME_PER_ACTION_ROAD + 0.01) * game_framework.frame_time * 10
+        if Eat_Coin:
+            self.score += 500
+            Eat_Coin = False
         if self.progress >= 100:
-            Reward_Score = self.score
+            Reward_Score += self.score
             game_framework.change_mode(reward_mode)
 
         print(road.TIME_PER_ACTION_ROAD)
