@@ -42,7 +42,6 @@ class Coin:
     def handle_collision(self, group, other):
         if group == 'car:coin':
             game_world.remove_object(self)
-            information.Reward_Score += 500
             information.Eat_Coin = True
             coin = Coin()
             game_world.add_object(coin)
