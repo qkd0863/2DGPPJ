@@ -17,7 +17,7 @@ class Hurdle:
 
     def update(self):
         self.y -= 0.5 + (1 - road.TIME_PER_ACTION_ROAD)
-        self.size += 0.1
+        self.size += max(0, min(0.1 * (1 - road.TIME_PER_ACTION_ROAD), 1))
         if self.y <= 0:
             game_world.remove_object(self)
             hurdle = Hurdle()
@@ -30,7 +30,8 @@ class Hurdle:
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - (50 + self.size)/2, self.y - (50 + self.size)/2, self.x + (50 + self.size)/2, self.y + (50 + self.size)/2
+        return self.x - (50 + self.size) / 2, self.y - (50 + self.size) / 2, self.x + (50 + self.size) / 2, self.y + (
+                50 + self.size) / 2
 
     def handle_collision(self, group, other):
         if group == 'car:hurdle':
