@@ -13,6 +13,7 @@ from road import Road
 
 def handle_events():
     global running
+
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -24,8 +25,14 @@ def handle_events():
 
 
 def update():
+    global start_time
     game_world.update()
     game_world.handle_collisions()
+    if get_time() - start_time >= 1.0:
+        start_time = get_time()
+        hurdle = Hurdle()
+        game_world.add_object(hurdle, 1)
+
     pass
 
 
@@ -46,7 +53,7 @@ def reset_world():
 def init():
     global running
     global car
-
+    global start_time
     running = True
 
     car = Car()
@@ -68,6 +75,7 @@ def init():
     information = Information()
     game_world.add_object(information, 1)
 
+    start_time = get_time()
 
 def finish():
     game_world.clear()
