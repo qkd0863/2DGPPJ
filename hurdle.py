@@ -26,13 +26,13 @@ class Hurdle:
         if (self.t < 1):
             self.x = (1 - self.t) * self.x1 + self.t * self.x2
             self.y = (1 - self.t) * self.y1 + self.t * self.y2
-            self.t += 0.001+0.001*(1 - road.TIME_PER_ACTION_ROAD)
+            self.t += 0.001 + 0.001 * (1 - road.TIME_PER_ACTION_ROAD)
         else:
             self.t = 0
 
-        # self.y -= 0.5 + (1 - road.TIME_PER_ACTION_ROAD)
-        self.size = max(0, 55*min(self.t , 1))
-        if self.y1 <= 0:
+
+        self.size = max(0, 55 * min(self.t, 1))
+        if self.y <= 0:
             game_world.remove_object(self)
             self.size = 0
 
@@ -49,5 +49,3 @@ class Hurdle:
         if group == 'car:hurdle':
             game_world.remove_object(self)
             road.TIME_PER_ACTION_ROAD += 0.2
-            hurdle = Hurdle()
-

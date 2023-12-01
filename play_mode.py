@@ -2,8 +2,7 @@ from pico2d import *
 
 import game_framework
 import game_world
-import information
-import title_mode
+import road
 from car import Car
 from coin import Coin
 from hurdle import Hurdle
@@ -26,14 +25,15 @@ def handle_events():
 
 def update():
     global start_time
-    game_world.update()
-    game_world.handle_collisions()
-    if get_time() - start_time >= 1.0:
+
+    if get_time() - start_time >= 1.1 - (1 - road.TIME_PER_ACTION_ROAD):
         start_time = get_time()
         hurdle = Hurdle()
         game_world.add_object(hurdle, 1)
+        game_world.add_collision_pair('car:hurdle', None, hurdle)
 
-    pass
+    game_world.update()
+    game_world.handle_collisions()
 
 
 def draw():
@@ -76,6 +76,7 @@ def init():
     game_world.add_object(information, 1)
 
     start_time = get_time()
+
 
 def finish():
     game_world.clear()
