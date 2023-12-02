@@ -3,14 +3,15 @@ main_file = 'main.py'
 
 # 데이타 파일들을 지정하세요.
 data_files = [
-  'car.png',
-'coin.png',
-'ENCR10B.TTF',
-'hurdle.png',
-'magnet.png',
-'road.png',
-'title.png',
-'tuk_credit.png'
+    'car.png',
+    'coin.png',
+    'ENCR10B.TTF',
+    'hurdle.png',
+    'magnet.png',
+    'road.png',
+    'title.png',
+    'tuk_credit.png',
+    'shield.png'
 ]
 
 # 데이타가 들어있는 폴더들을 지정하세요.

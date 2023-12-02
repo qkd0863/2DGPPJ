@@ -2,7 +2,9 @@ from pico2d import load_image, draw_rectangle
 from sdl2 import SDL_KEYDOWN, SDLK_LEFT, SDLK_RIGHT, SDL_KEYUP, SDLK_UP, SDLK_DOWN
 
 import game_framework
+import game_world
 import road
+from barrier import Barrier
 
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 20.0  # Km / Hour
@@ -179,3 +181,7 @@ class Car:
     def handle_collision(self, group, other):
         if group == 'car:hurdle':
             print('collide')
+        if group == 'car:shield':
+            print('collide')
+            barrier = Barrier()
+            game_world.add_collision_pair('barrier:hurdle', barrier, None)

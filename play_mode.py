@@ -10,6 +10,9 @@ from information import Information
 from road import Road
 from shield import Shield
 
+Car_x = 300
+Car_y = 100
+
 
 def handle_events():
     global running
@@ -26,12 +29,18 @@ def handle_events():
 
 def update():
     global start_time
+    global Car_x
+    global Car_y
 
     if get_time() - start_time >= 1.1 - (1 - road.TIME_PER_ACTION_ROAD):
         start_time = get_time()
         hurdle = Hurdle()
         game_world.add_object(hurdle, 1)
         game_world.add_collision_pair('car:hurdle', None, hurdle)
+        game_world.add_collision_pair('barrier:hurdle', None, hurdle)
+
+    Car_x = car.x
+    Car_y = car.y
 
     game_world.update()
     game_world.handle_collisions()
@@ -66,6 +75,7 @@ def init():
     hurdle = Hurdle()
     game_world.add_object(hurdle, 1)
     game_world.add_collision_pair('car:hurdle', None, hurdle)
+    game_world.add_collision_pair('barrier:hurdle', None, hurdle)
 
     coin = Coin()
     game_world.add_object(coin, 1)

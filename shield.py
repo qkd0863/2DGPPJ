@@ -4,8 +4,10 @@ from pico2d import load_image, draw_rectangle
 
 import car
 import game_world
+
 import math
 import road
+from barrier import Barrier
 
 
 class Shield:
@@ -50,7 +52,7 @@ class Shield:
 
     def get_bb(self):
         return self.x - (17 + self.size) / 2, self.y - (20 + self.size) / 2, self.x + (17 + self.size) / 2, self.y + (
-                    20 + self.size) / 2
+                20 + self.size) / 2
 
     def handle_collision(self, group, other):
         if group == 'car:shield':
@@ -58,3 +60,6 @@ class Shield:
             shield = Shield()
             game_world.add_object(shield)
             game_world.add_collision_pair('car:shield', None, shield)
+            barrier = Barrier()
+            game_world.add_object(barrier)
+            game_world.add_collision_pair('barrier:hurdle', barrier, None)
