@@ -8,6 +8,7 @@ from coin import Coin
 from hurdle import Hurdle
 from information import Information
 from road import Road
+from shield import Shield
 
 
 def handle_events():
@@ -60,6 +61,7 @@ def init():
     game_world.add_object(car, 1)
     game_world.add_collision_pair('car:hurdle', car, None)
     game_world.add_collision_pair('car:coin', car, None)
+    game_world.add_collision_pair('car:shield', car, None)
 
     hurdle = Hurdle()
     game_world.add_object(hurdle, 1)
@@ -74,6 +76,10 @@ def init():
 
     information = Information()
     game_world.add_object(information, 1)
+
+    shield = Shield()
+    game_world.add_object(shield, 1)
+    game_world.add_collision_pair('car:shield', None, shield)
 
     start_time = get_time()
 

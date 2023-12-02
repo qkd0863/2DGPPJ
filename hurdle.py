@@ -49,3 +49,5 @@ class Hurdle:
         if group == 'car:hurdle':
             game_world.remove_object(self)
             road.TIME_PER_ACTION_ROAD += 0.2
+        if group == 'shield:hurdle':
+            game_world.remove_object(self)
