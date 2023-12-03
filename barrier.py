@@ -29,9 +29,9 @@ class Barrier:
 
     def update(self):
         self.cx, self.cy = play_mode.Car_x, play_mode.Car_y
-        self.x = self.cx + 75 * math.cos(math.pi * self.rad / 180)
-        self.y = self.cy + 75 * math.sin(math.pi * self.rad / 180)
-        self.rad += 1
+        self.x = self.cx + 90 * math.cos(math.pi * self.rad / 180)
+        self.y = self.cy + 90 * math.sin(math.pi * self.rad / 180)
+        self.rad += 1.8
 
 
     def draw(self):

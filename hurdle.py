@@ -9,8 +9,8 @@ import road
 class Hurdle:
     image = None
 
-    def __init__(self):
-        self.x, self.y = 320 + 60 * random.randint(0, 2), 610
+    def __init__(self,line):
+        self.x, self.y = 320 + 60 * line, 610
         self.x1, self.y1 = self.x, self.y
         self.t = 0
         if (self.x1 == 320): self.x2 = 200
@@ -33,8 +33,9 @@ class Hurdle:
 
         self.size = max(0, 55 * min(self.t, 1))
         if self.y <= 0:
-            game_world.remove_object(self)
             self.size = 0
+            game_world.remove_object(self)
+
 
     def draw(self):
         self.image.draw(self.x, self.y, 25 + self.size, 25 + self.size)

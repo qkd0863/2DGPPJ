@@ -1,3 +1,5 @@
+import random
+
 from pico2d import *
 
 import game_framework
@@ -7,6 +9,7 @@ from car import Car
 from coin import Coin
 from hurdle import Hurdle
 from information import Information
+from item_mgr import Item_Mgr
 from road import Road
 from shield import Shield
 
@@ -32,12 +35,15 @@ def update():
     global Car_x
     global Car_y
 
-    if get_time() - start_time >= 1.1 - (1 - road.TIME_PER_ACTION_ROAD):
-        start_time = get_time()
-        hurdle = Hurdle()
-        game_world.add_object(hurdle, 1)
-        game_world.add_collision_pair('car:hurdle', None, hurdle)
-        game_world.add_collision_pair('barrier:hurdle', None, hurdle)
+    item_mgr.generate_item(get_time() - start_time)
+    print(get_time() - start_time)
+
+    # if get_time() - start_time >= 1.1 - (1 - road.TIME_PER_ACTION_ROAD):
+    #     start_time = get_time()
+    #     hurdle = Hurdle()
+    #     game_world.add_object(hurdle, 1)
+    #     game_world.add_collision_pair('car:hurdle', None, hurdle)
+    #     game_world.add_collision_pair('barrier:hurdle', None, hurdle)
 
     Car_x = car.x
     Car_y = car.y
@@ -64,6 +70,7 @@ def init():
     global running
     global car
     global start_time
+    global item_mgr
     running = True
 
     car = Car()
@@ -72,12 +79,12 @@ def init():
     game_world.add_collision_pair('car:coin', car, None)
     game_world.add_collision_pair('car:shield', car, None)
 
-    hurdle = Hurdle()
+    hurdle = Hurdle(1)
     game_world.add_object(hurdle, 1)
     game_world.add_collision_pair('car:hurdle', None, hurdle)
     game_world.add_collision_pair('barrier:hurdle', None, hurdle)
 
-    coin = Coin()
+    coin = Coin(0)
     game_world.add_object(coin, 1)
     game_world.add_collision_pair('car:coin', None, coin)
 
@@ -87,11 +94,13 @@ def init():
     information = Information()
     game_world.add_object(information, 1)
 
-    shield = Shield()
-    game_world.add_object(shield, 1)
-    game_world.add_collision_pair('car:shield', None, shield)
+    # shield = Shield(random.randint(0,2))
+    # game_world.add_object(shield, 1)
+    # game_world.add_collision_pair('car:shield', None, shield)
 
     start_time = get_time()
+
+    item_mgr = Item_Mgr()
 
 
 def finish():

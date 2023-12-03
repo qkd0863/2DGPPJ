@@ -15,10 +15,8 @@ FRAMES_PER_ACTION = 8
 class Coin:
     image = None
 
-    def __init__(self):
-        self.x, self.y = random.randint(300, 400), 610
-
-        self.x, self.y = 320 + 60 * random.randint(0, 2), 610
+    def __init__(self,line):
+        self.x, self.y = 320 + 60 * line, 610
         self.x1, self.y1 = self.x, self.y
         self.t = 0
         if (self.x1 == 320): self.x2 = 200
@@ -45,9 +43,7 @@ class Coin:
 
         if self.y <= 0:
             game_world.remove_object(self)
-            coin = Coin()
-            game_world.add_object(coin)
-            game_world.add_collision_pair('car:coin', None, coin)
+
 
     def draw(self):
         self.image.clip_draw(0, 0 + 16 * int(self.frame), 16, 16, self.x, self.y, 16 + self.size, 16 + self.size)
@@ -61,6 +57,4 @@ class Coin:
         if group == 'car:coin':
             game_world.remove_object(self)
             information.Eat_Coin = True
-            coin = Coin()
-            game_world.add_object(coin)
-            game_world.add_collision_pair('car:coin', None, coin)
+

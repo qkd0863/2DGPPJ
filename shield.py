@@ -13,10 +13,8 @@ from barrier import Barrier
 class Shield:
     image = None
 
-    def __init__(self):
-        self.x, self.y = random.randint(300, 400), 610
-
-        self.x, self.y = 320 + 60 * random.randint(0, 2), 610
+    def __init__(self, line):
+        self.x, self.y = 320 + 60 * line, 610
         self.x1, self.y1 = self.x, self.y
         self.t = 0
         if (self.x1 == 320): self.x2 = 200
@@ -41,9 +39,7 @@ class Shield:
 
         if self.y <= 0:
             game_world.remove_object(self)
-            shield = Shield()
-            game_world.add_object(shield)
-            game_world.add_collision_pair('car:shield', None, shield)
+
         pass
 
     def draw(self):
@@ -57,9 +53,6 @@ class Shield:
     def handle_collision(self, group, other):
         if group == 'car:shield':
             game_world.remove_object(self)
-            shield = Shield()
-            game_world.add_object(shield)
-            game_world.add_collision_pair('car:shield', None, shield)
             barrier = Barrier()
             game_world.add_object(barrier)
             game_world.add_collision_pair('barrier:hurdle', barrier, None)
