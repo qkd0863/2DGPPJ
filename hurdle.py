@@ -2,8 +2,15 @@ import random
 
 from pico2d import load_image, draw_rectangle
 
+import game_framework
 import game_world
 import road
+
+PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
+RUN_SPEED_KMPH = 0.2  # Km / Hour
+RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
 
 class Hurdle:
@@ -26,7 +33,8 @@ class Hurdle:
         if (self.t < 1):
             self.x = (1 - self.t) * self.x1 + self.t * self.x2
             self.y = (1 - self.t) * self.y1 + self.t * self.y2
-            self.t += 0.001 + 0.001 * (1 - road.TIME_PER_ACTION_ROAD)
+            # self.t += 0.01 + 0.01 * (1 - road.TIME_PER_ACTION_ROAD)* game_framework.frame_time
+            self.t += RUN_SPEED_PPS * (1 - road.TIME_PER_ACTION_ROAD + 0.1) * game_framework.frame_time
         else:
             self.t = 0
 

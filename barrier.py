@@ -35,7 +35,7 @@ class Barrier:
         self.cx, self.cy = play_mode.Car_x, play_mode.Car_y
         self.x = self.cx + 90 * math.cos(math.pi * self.rad / 180 + math.pi / 180 * (1 - self.num) * 120)
         self.y = self.cy + 90 * math.sin(math.pi * self.rad / 180 + math.pi / 180 * (1 - self.num) * 120)
-        self.rad += 1.8
+        self.rad += 720 * game_framework.frame_time
 
     def draw(self):
         self.image.draw(self.x, self.y, 17 + self.size, 20 + self.size)

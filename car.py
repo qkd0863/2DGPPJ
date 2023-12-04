@@ -7,7 +7,7 @@ import road
 from barrier import Barrier
 
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 20.0  # Km / Hour
+RUN_SPEED_KMPH = 10  # Km / Hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -73,9 +73,9 @@ class Move:
     @staticmethod
     def enter(car, e):
         if right_down(e):
-            car.dir = 1.5
+            car.dir = 3.6
         elif left_down(e):
-            car.dir = -1.5
+            car.dir = -3.6
 
     @staticmethod
     def exit(car, e):
@@ -98,9 +98,9 @@ class ChangeSpeed:
     def enter(car, e):
         car.dir = 0
         if front_down(e):
-            car.changespeed = -0.0005
+            car.changespeed = -0.002
         if back_down(e):
-            car.changespeed = 0.0005
+            car.changespeed = 0.002
         pass
 
     @staticmethod
@@ -112,7 +112,7 @@ class ChangeSpeed:
     def do(car):
         car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
         if road.TIME_PER_ACTION_ROAD + car.changespeed > 0.1:
-            road.TIME_PER_ACTION_ROAD += car.changespeed
+            road.TIME_PER_ACTION_ROAD += car.changespeed * RUN_SPEED_PPS * game_framework.frame_time
         if road.TIME_PER_ACTION_ROAD + car.changespeed <= 0.1:
             road.TIME_PER_ACTION_ROAD = 0.1
         pass

@@ -34,18 +34,15 @@ def update():
     global start_time
     global Car_x
     global Car_y
+    global count
 
-    time = get_time() * (2 - road.TIME_PER_ACTION_ROAD) - start_time
+    if (get_time() - start_time >= road.TIME_PER_ACTION_ROAD):
+        item_mgr.generate_item(count)
+        start_time = get_time()
+        count += 1
 
-    item_mgr.generate_item(time)
-
-    # if get_time() - start_time >= 1.1 - (1 - road.TIME_PER_ACTION_ROAD):
+    # if get_time() - start_time >= 12:
     #     start_time = get_time()
-    #     hurdle = Hurdle()
-    #     game_world.add_object(hurdle, 1)
-    #     game_world.add_collision_pair('car:hurdle', None, hurdle)
-    #     game_world.add_collision_pair('barrier:hurdle', None, hurdle)
-
     Car_x = car.x
     Car_y = car.y
 
@@ -72,7 +69,9 @@ def init():
     global car
     global start_time
     global item_mgr
+    global count
     running = True
+    count = 1
 
     car = Car()
     game_world.add_object(car, 1)
