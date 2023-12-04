@@ -1,7 +1,7 @@
 import math
 import random
 
-from pico2d import load_image, draw_rectangle
+from pico2d import load_image, draw_rectangle, load_wav
 import play_mode
 import car
 import game_framework
@@ -17,8 +17,12 @@ FRAMES_PER_ACTION = 8
 
 class Barrier:
     image = None
-
+    collide_sound = None
     def __init__(self):
+        if not Barrier.collide_sound:
+            Barrier.collide_sound = load_wav('barrier.wav')
+            Barrier.collide_sound.set_volume(32)
+
         self.x, self.y = 300, 100
         self.cx, self.cy = play_mode.Car_x, play_mode.Car_y
         self.rad = 0
@@ -44,4 +48,5 @@ class Barrier:
 
     def handle_collision(self, group, other):
         if group == 'barrier:hurdle':
+            Barrier.collide_sound.play()
             game_world.remove_object(self)

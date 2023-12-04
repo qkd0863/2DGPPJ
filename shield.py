@@ -1,6 +1,6 @@
 import random
 
-from pico2d import load_image, draw_rectangle
+from pico2d import load_image, draw_rectangle, load_wav
 
 import car
 import game_world
@@ -12,8 +12,12 @@ from barrier import Barrier
 
 class Shield:
     image = None
-
+    eat_sound = None
     def __init__(self, line):
+        if not Shield.eat_sound:
+            Shield.eat_sound = load_wav('eat_shield.wav')
+            Shield.eat_sound.set_volume(128)
+
         self.x, self.y = 320 + 60 * line, 610
         self.x1, self.y1 = self.x, self.y
         self.t = 0
@@ -52,6 +56,7 @@ class Shield:
 
     def handle_collision(self, group, other):
         if group == 'car:shield':
+            Shield.eat_sound.play()
             game_world.remove_object(self)
             barrier = Barrier()
             game_world.add_object(barrier)
