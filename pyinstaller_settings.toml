@@ -11,7 +11,9 @@ data_files = [
     'road.png',
     'title.png',
     'tuk_credit.png',
-    'shield.png'
+    'shield.png',
+    'coin_pickup.wav',
+    'race_music.mp3'
 ]
 
 # 데이타가 들어있는 폴더들을 지정하세요.
