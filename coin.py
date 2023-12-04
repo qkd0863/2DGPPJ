@@ -51,7 +51,7 @@ class Coin:
 
     def draw(self):
         self.image.clip_draw(0, 0 + 16 * int(self.frame), 16, 16, self.x, self.y, 16 + self.size, 16 + self.size)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - (16 + self.size) / 2, self.y - (16 + self.size) / 2, self.x + (16 + self.size) / 2, self.y + (

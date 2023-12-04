@@ -37,7 +37,7 @@ class Hurdle:
 
     def draw(self):
         self.image.draw(self.x, self.y, 25 + self.size, 25 + self.size)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - (25 + self.size) / 2, self.y - (25 + self.size) / 2, self.x + (
@@ -47,7 +47,6 @@ class Hurdle:
     def handle_collision(self, group, other):
         if group == 'car:hurdle':
             game_world.remove_object(self)
-            print('coll', road.TIME_PER_ACTION_ROAD)
 
             if road.TIME_PER_ACTION_ROAD < 1:
                 if road.TIME_PER_ACTION_ROAD + 0.2 > 1:

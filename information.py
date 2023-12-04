@@ -28,7 +28,7 @@ class Information:
             Reward_Score += self.score
             game_framework.change_mode(reward_mode)
 
-        print(road.TIME_PER_ACTION_ROAD)
+
 
     def draw(self):
         self.font.draw(630, 580, f'(Speed: {(1 - road.TIME_PER_ACTION_ROAD) * 50 + 80:.2f})', (255, 255, 0))

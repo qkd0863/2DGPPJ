@@ -48,7 +48,7 @@ class Shield:
 
     def draw(self):
         self.image.draw(self.x, self.y, 17 + self.size, 20 + self.size)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - (17 + self.size) / 2, self.y - (20 + self.size) / 2, self.x + (17 + self.size) / 2, self.y + (

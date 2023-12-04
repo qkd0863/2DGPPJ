@@ -32,7 +32,7 @@ class Item_Mgr:
         self.frame = 0
 
     def generate_item(self, time):
-        if (int(time) % 6 == 0 and time - self.ck_shield > 1):
+        if (int(time) % 12 == 0 and time - self.ck_shield > 1):
             self.ck_shield = int(time)
             shield_line = random.randint(0, 2)
             shield = Shield(shield_line)

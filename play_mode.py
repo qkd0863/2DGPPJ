@@ -35,8 +35,9 @@ def update():
     global Car_x
     global Car_y
 
-    item_mgr.generate_item(get_time() - start_time)
-    print(get_time() - start_time)
+    time = get_time() * (2 - road.TIME_PER_ACTION_ROAD) - start_time
+
+    item_mgr.generate_item(time)
 
     # if get_time() - start_time >= 1.1 - (1 - road.TIME_PER_ACTION_ROAD):
     #     start_time = get_time()

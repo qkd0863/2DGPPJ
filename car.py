@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import load_image, draw_rectangle, load_wav
 from sdl2 import SDL_KEYDOWN, SDLK_LEFT, SDLK_RIGHT, SDL_KEYUP, SDLK_UP, SDLK_DOWN
 
 import game_framework
@@ -106,15 +106,15 @@ class ChangeSpeed:
     @staticmethod
     def exit(car, e):
         car.changespeed = 0
-        print('speed exit')
         pass
 
     @staticmethod
     def do(car):
         car.frame = (car.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
-        if road.TIME_PER_ACTION_ROAD + car.changespeed > 0:
+        if road.TIME_PER_ACTION_ROAD + car.changespeed > 0.1:
             road.TIME_PER_ACTION_ROAD += car.changespeed
-        print(road.TIME_PER_ACTION_ROAD)
+        if road.TIME_PER_ACTION_ROAD + car.changespeed <= 0.1:
+            road.TIME_PER_ACTION_ROAD = 0.1
         pass
 
     @staticmethod
@@ -156,7 +156,13 @@ class StateMachine:
 
 
 class Car:
+    collision_sound = None
+
     def __init__(self):
+        if not Car.collision_sound:
+            Car.collision_sound = load_wav('car_collision.wav')
+            Car.collision_sound.set_volume(32)
+
         self.x, self.y = 300, 100
         self.frame = 0
         self.image = load_image('car.png')
@@ -173,16 +179,16 @@ class Car:
 
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - 50, self.y - 35, self.x + 50, self.y + 35
 
     def handle_collision(self, group, other):
         if group == 'car:hurdle':
-            print('collide')
+            Car.collision_sound.play()
+
         if group == 'car:shield':
-            print('collide')
             # barrier = Barrier(0)
             # game_world.add_collision_pair('barrier:hurdle', barrier, None)
             barrier1 = Barrier(0)

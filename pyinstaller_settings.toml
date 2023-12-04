@@ -15,7 +15,8 @@ data_files = [
     'coin_pickup.wav',
     'race_music.mp3',
     'eat_shield.wav',
-    'barrier.wav'
+    'barrier.wav',
+    'car_collision.wav'
 ]
 
 # 데이타가 들어있는 폴더들을 지정하세요.
