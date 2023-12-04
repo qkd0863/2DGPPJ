@@ -9,7 +9,7 @@ import road
 class Hurdle:
     image = None
 
-    def __init__(self,line):
+    def __init__(self, line):
         self.x, self.y = 320 + 60 * line, 610
         self.x1, self.y1 = self.x, self.y
         self.t = 0
@@ -30,12 +30,10 @@ class Hurdle:
         else:
             self.t = 0
 
-
         self.size = max(0, 55 * min(self.t, 1))
         if self.y <= 0:
             self.size = 0
             game_world.remove_object(self)
-
 
     def draw(self):
         self.image.draw(self.x, self.y, 25 + self.size, 25 + self.size)
@@ -49,6 +47,12 @@ class Hurdle:
     def handle_collision(self, group, other):
         if group == 'car:hurdle':
             game_world.remove_object(self)
-            road.TIME_PER_ACTION_ROAD += 0.2
+            print('coll', road.TIME_PER_ACTION_ROAD)
+
+            if road.TIME_PER_ACTION_ROAD < 1:
+                if road.TIME_PER_ACTION_ROAD + 0.2 > 1:
+                    road.TIME_PER_ACTION_ROAD = 1
+                else:
+                    road.TIME_PER_ACTION_ROAD += 0.2
         if group == 'barrier:hurdle':
             game_world.remove_object(self)

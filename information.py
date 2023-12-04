@@ -19,8 +19,8 @@ class Information:
     def update(self):
         global Reward_Score
         global Eat_Coin
-        self.score += 1 - road.TIME_PER_ACTION_ROAD + 0.01
-        self.progress += (1.0 - road.TIME_PER_ACTION_ROAD + 0.01) * game_framework.frame_time * 10
+        self.score += ((1 - road.TIME_PER_ACTION_ROAD)) * 3
+        self.progress += max(0.0001, (1.0 - road.TIME_PER_ACTION_ROAD + 0.01) * game_framework.frame_time * 5)
         if Eat_Coin:
             self.score += 500
             Eat_Coin = False
@@ -31,6 +31,6 @@ class Information:
         print(road.TIME_PER_ACTION_ROAD)
 
     def draw(self):
-        self.font.draw(630, 580, f'(Speed: {1 - road.TIME_PER_ACTION_ROAD:.2f})', (255, 255, 0))
+        self.font.draw(630, 580, f'(Speed: {(1 - road.TIME_PER_ACTION_ROAD) * 50 + 80:.2f})', (255, 255, 0))
         self.font.draw(630, 560, f'(Score: {self.score:.2f})', (255, 255, 0))
         self.font.draw(630, 540, f'(Progress: {self.progress:.2f})', (255, 255, 0))

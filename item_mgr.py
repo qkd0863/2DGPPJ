@@ -53,10 +53,11 @@ class Item_Mgr:
                 hurdle_line = random.randint(0, 2)
                 if hurdle_line != shield_line and hurdle_line != coin_line:
                     break
-            hurdle = Hurdle(random.randint(0, 2))
+            hurdle = Hurdle(hurdle_line)
             game_world.add_object(hurdle, 1)
             game_world.add_collision_pair('car:hurdle', None, hurdle)
             game_world.add_collision_pair('barrier:hurdle', None, hurdle)
+
             return
 
         if (int(time) % 3 == 0 and time - self.ck_coin > 1):
@@ -71,10 +72,11 @@ class Item_Mgr:
                 hurdle_line = random.randint(0, 2)
                 if hurdle_line != coin_line:
                     break
-            hurdle = Hurdle(random.randint(0, 2))
+            hurdle = Hurdle(hurdle_line)
             game_world.add_object(hurdle, 1)
             game_world.add_collision_pair('car:hurdle', None, hurdle)
             game_world.add_collision_pair('barrier:hurdle', None, hurdle)
+
             return
 
         if (int(time) % 1 == 0 and time - self.ck_hurdle > 1):
