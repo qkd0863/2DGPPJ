@@ -183,5 +183,16 @@ class Car:
             print('collide')
         if group == 'car:shield':
             print('collide')
-            barrier = Barrier()
-            game_world.add_collision_pair('barrier:hurdle', barrier, None)
+            # barrier = Barrier(0)
+            # game_world.add_collision_pair('barrier:hurdle', barrier, None)
+            barrier1 = Barrier(0)
+            barrier2 = Barrier(1)
+            barrier3 = Barrier(2)
+            game_world.add_object(barrier1)
+            game_world.add_collision_pair('barrier:hurdle', barrier1, None)
+
+            game_world.add_object(barrier2)
+            game_world.add_collision_pair('barrier:hurdle', barrier2, None)
+
+            game_world.add_object(barrier3)
+            game_world.add_collision_pair('barrier:hurdle', barrier3, None)

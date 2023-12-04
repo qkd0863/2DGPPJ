@@ -58,6 +58,3 @@ class Shield:
         if group == 'car:shield':
             Shield.eat_sound.play()
             game_world.remove_object(self)
-            barrier = Barrier()
-            game_world.add_object(barrier)
-            game_world.add_collision_pair('barrier:hurdle', barrier, None)
