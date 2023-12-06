@@ -1,0 +1,15 @@
+가로 600pix 세로 600pix	10pix=1m
+가로 60m 세로60m
+
+
+
+
+
+
+car RUN_SPEED_KMPH = 10
+car RUN_SPEED_PPS = 8.333..	초속8.3m/s 8.3pix/s
+car.dir * RUN_SPEED_PPS 	8.333*3.6pix/s=30pix/s 30m/s
+
+차량크기 가로 4m 세로 3.2m
+
+road TIME_PER_ACTION_ROAD

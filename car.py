@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle, load_wav
+from pico2d import load_image, draw_rectangle, load_wav, load_font, get_time
 from sdl2 import SDL_KEYDOWN, SDLK_LEFT, SDLK_RIGHT, SDL_KEYUP, SDLK_UP, SDLK_DOWN
 
 import game_framework
@@ -6,7 +6,7 @@ import game_world
 import road
 from barrier import Barrier
 
-PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
+PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 m
 RUN_SPEED_KMPH = 10  # Km / Hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
